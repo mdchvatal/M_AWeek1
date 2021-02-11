@@ -18,7 +18,6 @@ public class VotingBox extends SuperKarel {
 			checkVote();
 			move();
 		}
-		
 				
 	}
 	

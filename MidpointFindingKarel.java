@@ -14,15 +14,99 @@ import stanford.karel.*;
 
 
 
-
-
-
-
 public class MidpointFindingKarel extends SuperKarel {
-
+	
 	public void run() {
-		
+		clearBeepers();
+		countByTwos();
+		stop();
+		arrangeBeepersContiguously();
 	}
 	
+	private void clearBeepers() {
+		while (beepersPresent()) {
+			pickBeeper();
+		}
+		while (frontIsClear()) {
+			move();
+			while (beepersPresent()) {
+				pickBeeper();
+			}
+		}
+		turnAround();
+	}
+	
+	private void countByTwos() {
+		while (frontIsClear()) {
+			putBeeper();
+			if (frontIsClear()) {
+				move();
+			}
+			if (frontIsClear()) {
+				move();
+			}
+		}
+		putBeeper();
+		turnAround();
+	}
+	
+	private void arrangeBeepersContiguously() {
+			if (!beepersPresent()) {
+				while (frontIsClear()) {
+					moveNextBeeper();
+				}
+			} else {
+				move();
+				while (frontIsClear()) {
+					moveNextBeeper();
+				}
+			}
+	}
 
+	
+	
+	private void moveNextBeeper() {
+			while (!beepersPresent()) {
+				if (frontIsClear()) {
+					move();
+					} else {
+						turnAround();
+						leaveBeeperAtHalf();
+					}
+				}
+				pickBeeper(); 
+				turnAround();
+				moveItBack();
+	}
+				
+	
+	private void moveItBack() {
+		while (!beepersPresent()) {
+			if (frontIsClear()) {
+				move(); } else {
+					turnAround();
+			}
+			
+		}
+		turnAround();
+		move();
+		putBeeper();
+		move();
+		}
+	 
+	
+	private void leaveBeeperAtHalf() {
+		while (!beepersPresent()) {
+			move();
+		}
+		move();
+		if (beepersPresent()) {
+			pickBeeper();
+			while (frontIsClear()) {
+				move();
+				pickBeeper();
+			}
+		}
+	}
 }
+
